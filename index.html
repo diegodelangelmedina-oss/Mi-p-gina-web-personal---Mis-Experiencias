@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diego | Mis Experiencias</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .title-font {
+            font-family: 'Playfair Display', sans-serif;
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e2937 100%);
+        }
+        .card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card:hover {
+            transform: translateY(-15px) scale(1.03);
+        }
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .text-glow {
+            text-shadow: 0 0 20px rgb(248 113 113);
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white overflow-x-hidden">
+
+    <!-- HERO -->
+    <section class="hero-bg min-h-screen flex items-center relative">
+        <div class="absolute inset-0 bg-[radial-gradient(at_center,#ff000020_0%,transparent_70%)]"></div>
+        <div class="max-w-6xl mx-auto px-6 text-center relative z-10">
+            <h1 class="text-6xl md:text-7xl font-bold title-font mb-6 animate-on-scroll">
+                Soy <span class="text-red-500 text-glow">Diego</span>
+            </h1>
+            <p class="text-2xl md:text-3xl text-zinc-400 mb-8 animate-on-scroll" style="animation-delay: 200ms">
+                Creador de experiencias • Emprendedor • Desarrollador
+            </p>
+            <p class="max-w-xl mx-auto text-lg text-zinc-300 mb-12 animate-on-scroll" style="animation-delay: 400ms">
+                Bienvenido a mi viaje. Aquí comparto mis proyectos, aprendizajes y todo lo que he construido hasta ahora.
+            </p>
+            <a href="#experiencias" 
+               class="inline-block bg-red-600 hover:bg-red-700 px-10 py-5 rounded-full text-xl font-semibold transition transform hover:scale-105">
+                Explorar Mis Experiencias
+            </a>
+        </div>
+        <div class="absolute bottom-10 left-1/2 animate-bounce">
+            <i class="fa-solid fa-chevron-down text-4xl"></i>
+        </div>
+    </section>
+
+    <!-- SOBRE MÍ -->
+    <section class="py-24 bg-zinc-900">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-16 title-font">Sobre Mí</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="animate-on-scroll">
+                    <img src="https://via.placeholder.com/600x700/1f2937/ffffff?text=Diego" 
+                         alt="Diego" class="rounded-3xl shadow-2xl">
+                </div>
+                <div class="space-y-6 text-lg animate-on-scroll">
+                    <p class="text-zinc-300">
+                        Soy Diego, un apasionado emprendedor y desarrollador. Me motiva crear cosas que impacten positivamente en las personas.
+                    </p>
+                    <p class="text-zinc-300">
+                        Actualmente enfocado en proyectos que combinan tecnología, creatividad y valor real. Mi último proyecto universitario fue <strong>"Impacto Preciso"</strong>.
+                    </p>
+                    <div class="flex gap-8 text-5xl pt-6">
+                        <i class="fa-brands fa-github hover:text-red-500 cursor-pointer transition"></i>
+                        <i class="fa-brands fa-linkedin hover:text-red-500 cursor-pointer transition"></i>
+                        <i class="fa-brands fa-instagram hover:text-red-500 cursor-pointer transition"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCIAS -->
+    <section id="experiencias" class="py-24">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-4 title-font">Mis Experiencias</h2>
+            <p class="text-center text-zinc-400 mb-16">Proyectos que han definido mi camino</p>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Impacto Preciso -->
+                <div class="bg-zinc-900 rounded-3xl overflow-hidden card">
+                    <div class="h-72 bg-gradient-to-br from-red-800 to-black flex items-center justify-center relative">
+                        <span class="text-8xl">🎯</span>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-2">Impacto Preciso</h3>
+                        <p class="text-red-400 mb-4">Proyecto Universitario • Formación de Emprendedores</p>
+                        <p class="text-zinc-400 mb-6">
+                            Juego interactivo de dardos con sistema de ranking en tiempo real usando Firebase.
+                        </p>
+                        <a href="juego/index.html" class="block text-center bg-red-600 hover:bg-red-700 py-4 rounded-2xl font-semibold">
+                            Jugar Ahora →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Añade más tarjetas aquí según tus experiencias -->
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERÍA / CARRUSEL -->
+    <section class="py-24 bg-zinc-900">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-5xl font-bold text-center mb-16 title-font">Momentos Capturados</h2>
+            
+            <div id="carousel" class="relative overflow-hidden rounded-3xl">
+                <div id="slides" class="flex transition-transform duration-700 ease-in-out">
+                    <img src="https://via.placeholder.com/1200x600/1f2937/ffffff?text=Proyecto+1" class="w-full flex-shrink-0" alt="Experiencia 1">
+                    <img src="https://via.placeholder.com/1200x600/1f2937/ffffff?text=Viaje+2" class="w-full flex-shrink-0" alt="Experiencia 2">
+                    <img src="https://via.placeholder.com/1200x600/1f2937/ffffff?text=Evento+3" class="w-full flex-shrink-0" alt="Experiencia 3">
+                </div>
+                
+                <!-- Controles -->
+                <button onclick="prevSlide()" class="absolute left-6 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black p-4 rounded-full">
+                    <i class="fa-solid fa-chevron-left text-2xl"></i>
+                </button>
+                <button onclick="nextSlide()" class="absolute right-6 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black p-4 rounded-full">
+                    <i class="fa-solid fa-chevron-right text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-12 text-center">
+        <p class="text-xl">© 2026 Diego • Mis Experiencias</p>
+        <p class="text-zinc-500 mt-2">Hecho con pasión y código</p>
+    </footer>
+
+    <script>
+        // Animaciones al hacer scroll
+        function animateOnScroll() {
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.85) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // Carrusel
+        let currentSlide = 0;
+        const slides = document.getElementById('slides');
+        const totalSlides = 3;
+
+        function updateCarousel() {
+            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        // Auto-play del carrusel
+        setInterval(() => {
+            nextSlide();
+        }, 5000);
+    </script>
+</body>
+</html>
