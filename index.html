@@ -5,172 +5,1123 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Diego del Ángel Medina | Mis Experiencias</title>
 
-  <!-- Tailwind CSS -->
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Google Fonts: Cormorant Garamond + DM Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <script>
-    // Configuración de Tailwind
+    /* ── Tailwind Config ── */
     tailwind.config = {
-      content: ["**/*"],
       theme: {
         extend: {
           colors: {
-            emerald: { DEFAULT: '#10b981', dark: '#059669' },
-            earth:   { DEFAULT: '#d97706' },
-            cream:   '#f5f0e8',
-            stone:   { light: '#a8a29e' }
+            emerald:  { DEFAULT: '#10b981', dark: '#059669', light: '#34d399' },
+            earth:    { DEFAULT: '#92400e', mid: '#78350f', light: '#d97706', pale: '#fef3c7' },
+            soil:     { DEFAULT: '#3d2b1f', mid: '#2d1f14', dark: '#1a110b' },
+            stone:    { DEFAULT: '#44403c', light: '#78716c', lighter: '#a8a29e' },
+            cream:    '#f5f0e8',
           },
           fontFamily: {
-            display: ['Cormorant Garamond', 'serif'],
-            body: ['DM Sans', 'sans-serif']
-          }
+            display: ['"Cormorant Garamond"', 'serif'],
+            body:    ['"DM Sans"', 'sans-serif'],
+          },
         }
       }
     }
   </script>
 
   <style>
-    body {
-      background: #0d0b09;
-      color: #e5e0d8;
-      font-family: 'DM Sans', sans-serif;
+    /* ── Root Variables ── */
+    :root {
+      --c-bg:        #0d0b09;
+      --c-surface:   #161210;
+      --c-card:      #1e1a16;
+      --c-border:    rgba(16,185,129,0.15);
+      --c-emerald:   #10b981;
+      --c-earth:     #d97706;
+      --c-text:      #e5e0d8;
+      --c-muted:     #a8a29e;
     }
+
+    /* ── Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--c-bg);
+      color: var(--c-text);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    /* ── Grain overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: .5;
+    }
+
+    /* ── Typography ── */
     .font-display { font-family: 'Cormorant Garamond', serif; }
 
+    /* ── Scroll reveal ── */
     .reveal {
       opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+      transform: translateY(36px);
+      transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
     }
     .reveal.visible {
       opacity: 1;
-      transform: translateY(0);
+      transform: none;
+    }
+    .reveal-left  { transform: translateX(-40px); }
+    .reveal-right { transform: translateX( 40px); }
+    .reveal-left.visible,
+    .reveal-right.visible { transform: none; }
+
+    /* ── Stagger delays ── */
+    .delay-1 { transition-delay: .1s; }
+    .delay-2 { transition-delay: .2s; }
+    .delay-3 { transition-delay: .3s; }
+    .delay-4 { transition-delay: .4s; }
+    .delay-5 { transition-delay: .5s; }
+
+    /* ── Emerald glow ── */
+    .glow {
+      box-shadow: 0 0 28px rgba(16,185,129,.18), 0 0 60px rgba(16,185,129,.06);
+    }
+    .glow-sm {
+      box-shadow: 0 0 14px rgba(16,185,129,.15);
     }
 
-    .exp-card {
-      background: #1e1a16;
-      border: 1px solid rgba(16,185,129,0.2);
-      transition: all 0.4s ease;
-    }
-    .exp-card:hover {
-      transform: translateY(-8px);
-      border-color: #10b981;
-      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3);
-    }
-
+    /* ── Gradient text ── */
     .gradient-text {
-      background: linear-gradient(135deg, #10b981, #34d399, #d97706);
+      background: linear-gradient(135deg, #10b981 0%, #34d399 40%, #d97706 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
+
+    /* ── Nav ── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 900;
+      transition: background .4s, backdrop-filter .4s, box-shadow .4s;
+    }
+    #navbar.scrolled {
+      background: rgba(13,11,9,.85);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 1px 0 var(--c-border);
+    }
+
+    /* ── Hero canvas particles ── */
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    /* ── Card hover ── */
+    .exp-card {
+      background: var(--c-card);
+      border: 1px solid var(--c-border);
+      transition: transform .35s cubic-bezier(.22,1,.36,1),
+                  box-shadow .35s cubic-bezier(.22,1,.36,1),
+                  border-color .35s;
+    }
+    .exp-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(16,185,129,.4);
+      box-shadow: 0 16px 40px rgba(0,0,0,.5), 0 0 24px rgba(16,185,129,.12);
+    }
+
+    /* ── Skill bar ── */
+    .skill-bar-fill {
+      height: 3px;
+      background: linear-gradient(90deg, #10b981, #34d399);
+      border-radius: 99px;
+      width: 0;
+      transition: width 1.2s cubic-bezier(.22,1,.36,1);
+    }
+
+    /* ── Tag badge ── */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .25rem .75rem;
+      border-radius: 99px;
+      font-size: .72rem;
+      font-weight: 500;
+      border: 1px solid rgba(16,185,129,.25);
+      background: rgba(16,185,129,.07);
+      color: #34d399;
+      letter-spacing: .04em;
+    }
+
+    /* ── Section divider ── */
+    .divider {
+      width: 60px; height: 2px;
+      background: linear-gradient(90deg, #10b981, transparent);
+      border-radius: 2px;
+    }
+
+    /* ── Avatar ring ── */
+    .avatar-ring {
+      background: conic-gradient(#10b981, #d97706, #10b981);
+      padding: 3px;
+      border-radius: 50%;
+      animation: spin-slow 8s linear infinite;
+    }
+    @keyframes spin-slow { to { transform: rotate(360deg); } }
+
+    /* ── Timeline ── */
+    .timeline-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--c-emerald);
+      border: 3px solid var(--c-bg);
+      box-shadow: 0 0 0 2px var(--c-emerald);
+      flex-shrink: 0;
+    }
+    .timeline-line {
+      width: 2px;
+      background: linear-gradient(180deg, var(--c-emerald), transparent);
+      flex-shrink: 0;
+    }
+
+    /* ── CTA button ── */
+    .btn-primary {
+      position: relative;
+      overflow: hidden;
+      background: transparent;
+      border: 1px solid var(--c-emerald);
+      color: var(--c-emerald);
+      padding: .75rem 2rem;
+      border-radius: 4px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .9rem;
+      font-weight: 500;
+      letter-spacing: .06em;
+      cursor: pointer;
+      transition: color .3s;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--c-emerald);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .35s cubic-bezier(.22,1,.36,1);
+      z-index: -1;
+    }
+    .btn-primary:hover { color: #0d0b09; }
+    .btn-primary:hover::before { transform: scaleX(1); }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0d0b09; }
+    ::-webkit-scrollbar-thumb { background: #10b981; border-radius: 4px; }
+
+    /* ── Mobile menu ── */
+    #mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: rgba(13,11,9,.97);
+      backdrop-filter: blur(20px);
+    }
+    #mobile-menu.open { display: flex; }
   </style>
 </head>
+
 <body>
 
-  <!-- Navbar -->
-  <nav id="navbar" class="fixed top-0 w-full z-50 bg-[#0d0b09]/95 backdrop-blur-md border-b border-emerald-900/30">
-    <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
-      <a href="#" class="font-display text-2xl">D. del Ángel</a>
-      <div class="hidden md:flex gap-8 text-sm">
-        <a href="#sobre-mi" class="hover:text-emerald-400 transition">Sobre mí</a>
-        <a href="#experiencias" class="hover:text-emerald-400 transition">Experiencias</a>
-        <a href="#habilidades" class="hover:text-emerald-400 transition">Habilidades</a>
-        <a href="#educacion" class="hover:text-emerald-400 transition">Educación</a>
-      </div>
-    </div>
-  </nav>
+<!-- ╔══════════════════════════════╗
+     ║        NAVBAR                ║
+     ╚══════════════════════════════╝ -->
+<nav id="navbar" class="px-6 py-4">
+  <div class="max-w-6xl mx-auto flex items-center justify-between">
 
-  <!-- Hero Section -->
-  <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
-    <canvas id="hero-canvas" class="absolute inset-0"></canvas>
-    
-    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
-      <h1 class="font-display text-6xl md:text-7xl font-semibold leading-none mb-6">
-        Diego del Ángel<br><span class="gradient-text">Medina</span>
-      </h1>
-      <p class="text-2xl text-emerald-300 mb-10">Técnico en Productividad Industrial</p>
-      <a href="#experiencias" class="inline-block bg-emerald-600 hover:bg-emerald-500 px-10 py-4 rounded-full text-lg font-medium transition">
-        Ver mis experiencias
+    <!-- Logo -->
+    <a href="#hero" class="font-display text-xl text-white tracking-wide hover:text-emerald-DEFAULT transition-colors">
+      D<span class="text-emerald-DEFAULT">.</span>del Ángel
+    </a>
+
+    <!-- Desktop links -->
+    <ul class="hidden md:flex items-center gap-8 text-sm font-body text-stone-lighter tracking-wide">
+      <li><a href="#sobre-mi"     class="hover:text-emerald-DEFAULT transition-colors">Sobre&nbsp;mí</a></li>
+      <li><a href="#experiencias" class="hover:text-emerald-DEFAULT transition-colors">Experiencias</a></li>
+      <li><a href="#habilidades"  class="hover:text-emerald-DEFAULT transition-colors">Habilidades</a></li>
+      <li><a href="#educacion"    class="hover:text-emerald-DEFAULT transition-colors">Educación</a></li>
+      <li><a href="#contacto"     class="btn-primary text-xs uppercase tracking-widest">Contacto</a></li>
+    </ul>
+
+    <!-- Hamburger -->
+    <button id="hamburger" class="md:hidden text-white focus:outline-none" aria-label="Menú">
+      <i class="fa-solid fa-bars text-xl"></i>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="md:hidden flex-col gap-4 px-6 pb-6 pt-2 border-t border-emerald-DEFAULT/10">
+    <a href="#sobre-mi"     class="text-stone-lighter hover:text-emerald-DEFAULT transition-colors py-1 block" onclick="closeMobileMenu()">Sobre mí</a>
+    <a href="#experiencias" class="text-stone-lighter hover:text-emerald-DEFAULT transition-colors py-1 block" onclick="closeMobileMenu()">Experiencias</a>
+    <a href="#habilidades"  class="text-stone-lighter hover:text-emerald-DEFAULT transition-colors py-1 block" onclick="closeMobileMenu()">Habilidades</a>
+    <a href="#educacion"    class="text-stone-lighter hover:text-emerald-DEFAULT transition-colors py-1 block" onclick="closeMobileMenu()">Educación</a>
+    <a href="#contacto"     class="text-stone-lighter hover:text-emerald-DEFAULT transition-colors py-1 block" onclick="closeMobileMenu()">Contacto</a>
+  </div>
+</nav>
+
+
+<!-- ╔══════════════════════════════╗
+     ║        HERO                  ║
+     ╚══════════════════════════════╝ -->
+<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+
+  <!-- Canvas partículas -->
+  <canvas id="hero-canvas"></canvas>
+
+  <!-- Radial spotlight -->
+  <div class="absolute inset-0 pointer-events-none"
+       style="background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(16,185,129,.07) 0%, transparent 70%);"></div>
+
+  <!-- Líneas decorativas -->
+  <div class="absolute left-0 top-1/2 w-40 h-px bg-gradient-to-r from-transparent to-emerald-DEFAULT/30 -translate-y-1/2"></div>
+  <div class="absolute right-0 top-1/2 w-40 h-px bg-gradient-to-l from-transparent to-emerald-DEFAULT/30 -translate-y-1/2"></div>
+
+  <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+
+    <!-- Eyebrow -->
+    <p class="reveal font-body text-sm tracking-[.25em] uppercase text-emerald-DEFAULT mb-6 opacity-80">
+      Portfolio Profesional
+    </p>
+
+    <!-- Nombre principal -->
+    <h1 class="reveal delay-1 font-display font-semibold leading-none mb-4"
+        style="font-size: clamp(2.8rem, 8vw, 6rem);">
+      <span class="text-cream">Diego del Ángel</span><br/>
+      <span class="gradient-text italic">Medina</span>
+    </h1>
+
+    <!-- Subtítulo -->
+    <p class="reveal delay-2 font-body text-stone-lighter text-lg md:text-xl mb-4 max-w-xl mx-auto">
+      Técnico en Productividad Industrial &amp; Desarrollador Web
+    </p>
+
+    <!-- Descripción corta -->
+    <p class="reveal delay-3 font-body text-stone-DEFAULT text-sm md:text-base mb-10 max-w-lg mx-auto">
+      Egresado del CONALEP Ing.&nbsp;Adrián Sada Treviño · Mecánica Automotriz · Industria Textil
+    </p>
+
+    <!-- CTAs -->
+    <div class="reveal delay-4 flex flex-wrap gap-4 justify-center">
+      <a href="#experiencias" class="btn-primary uppercase tracking-widest text-xs">
+        Ver experiencias
+      </a>
+      <a href="https://diegodelangelmedina-oss.github.io/impacto-preciso/"
+         target="_blank" rel="noopener"
+         class="font-body text-xs uppercase tracking-widest px-8 py-3 rounded border border-earth-light/40 text-earth-light hover:bg-earth-light/10 transition-colors">
+        <i class="fa-solid fa-gamepad mr-2"></i>Mi juego
       </a>
     </div>
-  </section>
 
-  <!-- Resto del contenido (puedes ir añadiendo las secciones de Claude poco a poco) -->
+    <!-- Scroll indicator -->
+    <div class="reveal delay-5 mt-20 flex flex-col items-center gap-2 text-stone-DEFAULT/40">
+      <span class="text-xs tracking-widest uppercase font-body">Scroll</span>
+      <div class="w-px h-10 bg-gradient-to-b from-emerald-DEFAULT/50 to-transparent animate-bounce"></div>
+    </div>
+  </div>
+</section>
 
-  <script>
-    // Navbar scroll effect
-    window.addEventListener('scroll', () => {
-      document.getElementById('navbar').classList.toggle('shadow-2xl', window.scrollY > 30);
+
+<!-- ╔══════════════════════════════╗
+     ║        SOBRE MÍ              ║
+     ╚══════════════════════════════╝ -->
+<section id="sobre-mi" class="py-28 px-6 relative"
+         style="background: linear-gradient(180deg, #0d0b09 0%, #111009 100%);">
+
+  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+
+    <!-- Foto placeholder -->
+    <div class="reveal reveal-left flex justify-center md:justify-start">
+      <div class="relative">
+        <!-- Anillo animado -->
+        <div class="avatar-ring w-64 h-64 md:w-72 md:h-72 flex items-center justify-center">
+          <div class="bg-soil-mid rounded-full w-full h-full flex items-center justify-center overflow-hidden"
+               style="margin: 3px;">
+            <div class="w-full h-full flex flex-col items-center justify-center bg-soil-mid">
+              <i class="fa-solid fa-user text-6xl text-emerald-DEFAULT/40 mb-2"></i>
+              <span class="text-stone-DEFAULT text-xs tracking-widest uppercase font-body">Foto</span>
+            </div>
+          </div>
+        </div>
+        <!-- Badge -->
+        <div class="absolute -bottom-3 -right-3 bg-emerald-DEFAULT text-soil-dark text-xs font-body font-semibold px-3 py-1.5 rounded-full tracking-wide glow-sm">
+          PTB ✓
+        </div>
+      </div>
+    </div>
+
+    <!-- Texto -->
+    <div class="reveal reveal-right">
+      <p class="text-emerald-DEFAULT text-xs tracking-[.2em] uppercase font-body mb-3">Sobre mí</p>
+      <h2 class="font-display text-4xl md:text-5xl font-semibold text-cream mb-5 leading-tight">
+        Técnico, creador<br/><em class="gradient-text">y aprendiz</em>
+      </h2>
+      <div class="divider mb-6"></div>
+      <p class="font-body text-stone-lighter leading-relaxed mb-4">
+        Soy Diego del Ángel Medina, egresado del <strong class="text-cream">CONALEP Ing. Adrián Sada Treviño</strong>,
+        donde obtuve el título de <strong class="text-cream">Técnico en Productividad Industrial (PTB)</strong>.
+        Mi formación combina la precisión industrial con la creatividad tecnológica.
+      </p>
+      <p class="font-body text-stone-lighter leading-relaxed mb-6">
+        He trabajado en la industria textil, desarrollado videojuegos web y domino herramientas de
+        la suite Microsoft 365. Me apasiona aprender, resolver problemas y construir cosas que
+        tengan impacto real.
+      </p>
+
+      <!-- Mini stats -->
+      <div class="grid grid-cols-3 gap-4">
+        <div class="text-center p-4 rounded-lg" style="background: rgba(16,185,129,.06); border: 1px solid rgba(16,185,129,.12);">
+          <p class="font-display text-3xl text-emerald-DEFAULT font-semibold">3+</p>
+          <p class="font-body text-xs text-stone-DEFAULT mt-1 tracking-wide">Áreas<br/>de expertise</p>
+        </div>
+        <div class="text-center p-4 rounded-lg" style="background: rgba(16,185,129,.06); border: 1px solid rgba(16,185,129,.12);">
+          <p class="font-display text-3xl text-emerald-DEFAULT font-semibold">5</p>
+          <p class="font-body text-xs text-stone-DEFAULT mt-1 tracking-wide">Certs.<br/>Microsoft</p>
+        </div>
+        <div class="text-center p-4 rounded-lg" style="background: rgba(16,185,129,.06); border: 1px solid rgba(16,185,129,.12);">
+          <p class="font-display text-3xl text-emerald-DEFAULT font-semibold">1</p>
+          <p class="font-body text-xs text-stone-DEFAULT mt-1 tracking-wide">Juego<br/>publicado</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════╗
+     ║        EXPERIENCIAS          ║
+     ╚══════════════════════════════╝ -->
+<section id="experiencias" class="py-28 px-6 relative"
+         style="background: #111009;">
+
+  <!-- Decoración fondo -->
+  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-DEFAULT/20 to-transparent"></div>
+
+  <div class="max-w-6xl mx-auto">
+
+    <!-- Header sección -->
+    <div class="reveal text-center mb-20">
+      <p class="text-emerald-DEFAULT text-xs tracking-[.2em] uppercase font-body mb-3">Trayectoria</p>
+      <h2 class="font-display text-4xl md:text-5xl font-semibold text-cream mb-4">
+        Mis <em class="gradient-text">Experiencias</em>
+      </h2>
+      <div class="divider mx-auto"></div>
+    </div>
+
+    <!-- Timeline + Cards -->
+    <div class="space-y-10">
+
+      <!-- ── Experiencia 1: Fabricó Textiles ── -->
+      <div class="reveal delay-1 exp-card rounded-2xl p-8 relative overflow-hidden">
+        <!-- Accent line -->
+        <div class="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl"
+             style="background: linear-gradient(180deg, #10b981, #d97706);"></div>
+
+        <div class="grid md:grid-cols-3 gap-8 items-start pl-4">
+          <!-- Info principal -->
+          <div class="md:col-span-2">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center text-emerald-DEFAULT"
+                   style="background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.2);">
+                <i class="fa-solid fa-shirt text-lg"></i>
+              </div>
+              <div>
+                <h3 class="font-display text-2xl text-cream font-semibold">Fabricó Textiles</h3>
+                <p class="font-body text-emerald-DEFAULT text-sm">Encargado del Área de Corte de Playeras</p>
+              </div>
+            </div>
+            <p class="font-body text-stone-lighter text-sm leading-relaxed mb-5">
+              Responsable de la gestión y operación del área de corte en la producción de playeras,
+              asegurando precisión, calidad y cumplimiento de tiempos en cada proceso productivo.
+            </p>
+            <!-- Responsabilidades -->
+            <ul class="space-y-2">
+              <li class="flex items-start gap-3 font-body text-sm text-stone-lighter">
+                <span class="text-emerald-DEFAULT mt-0.5 flex-shrink-0"><i class="fa-solid fa-check-circle text-xs"></i></span>
+                <span>Supervisión y ejecución del corte de telas para producción de playeras en serie</span>
+              </li>
+              <li class="flex items-start gap-3 font-body text-sm text-stone-lighter">
+                <span class="text-emerald-DEFAULT mt-0.5 flex-shrink-0"><i class="fa-solid fa-check-circle text-xs"></i></span>
+                <span>Manejo de <strong class="text-cream">planchas térmicas</strong> para aplicación de diseños y color personalizado</span>
+              </li>
+              <li class="flex items-start gap-3 font-body text-sm text-stone-lighter">
+                <span class="text-emerald-DEFAULT mt-0.5 flex-shrink-0"><i class="fa-solid fa-check-circle text-xs"></i></span>
+                <span>Operación de <strong class="text-cream">calandra de sublimación</strong> para transferencia de diseños de alta calidad</span>
+              </li>
+              <li class="flex items-start gap-3 font-body text-sm text-stone-lighter">
+                <span class="text-emerald-DEFAULT mt-0.5 flex-shrink-0"><i class="fa-solid fa-check-circle text-xs"></i></span>
+                <span>Conocimientos básicos de <strong class="text-cream">costura</strong> y acabado textil</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Tags / Skills usados -->
+          <div>
+            <p class="font-body text-xs text-stone-DEFAULT uppercase tracking-widest mb-4">Competencias clave</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag"><i class="fa-solid fa-scissors"></i> Corte</span>
+              <span class="tag"><i class="fa-solid fa-fire"></i> Plancha térmica</span>
+              <span class="tag"><i class="fa-solid fa-palette"></i> Sublimación</span>
+              <span class="tag"><i class="fa-solid fa-thread"></i> Costura</span>
+              <span class="tag"><i class="fa-solid fa-industry"></i> Producción</span>
+              <span class="tag"><i class="fa-solid fa-clipboard-check"></i> Control calidad</span>
+            </div>
+
+            <!-- Industria badge -->
+            <div class="mt-6 p-4 rounded-xl text-center"
+                 style="background: rgba(217,119,6,.06); border: 1px solid rgba(217,119,6,.18);">
+              <i class="fa-solid fa-industry text-earth-light text-2xl mb-2 block"></i>
+              <p class="font-body text-earth-light text-xs font-medium tracking-wide">Industria Textil</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ── Experiencia 2: Desarrollo Web ── -->
+      <div class="reveal delay-2 exp-card rounded-2xl p-8 relative overflow-hidden">
+        <div class="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl"
+             style="background: linear-gradient(180deg, #3b82f6, #10b981);"></div>
+
+        <div class="grid md:grid-cols-3 gap-8 items-start pl-4">
+          <div class="md:col-span-2">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center text-blue-400"
+                   style="background: rgba(59,130,246,.1); border: 1px solid rgba(59,130,246,.2);">
+                <i class="fa-solid fa-code text-lg"></i>
+              </div>
+              <div>
+                <h3 class="font-display text-2xl text-cream font-semibold">Desarrollo Web</h3>
+                <p class="font-body text-blue-400 text-sm">Creador del juego "Impacto Preciso"</p>
+              </div>
+            </div>
+            <p class="font-body text-stone-lighter text-sm leading-relaxed mb-5">
+              Desarrollo de aplicaciones y juegos web usando tecnologías frontend. Autor del videojuego
+              <em class="text-cream">"Impacto Preciso"</em>, publicado y disponible online, demostrando
+              dominio de HTML, CSS y JavaScript.
+            </p>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-3 font-body text-sm text-stone-lighter">
+                <span class="text-blue-400 mt-0.5 flex-shrink-0"><i class="fa-solid fa-check-circle text-xs"></i></span>
+                <span>Diseño y desarrollo completo de <strong class="text-cream">Impacto Preciso</strong> desde cero</span>
+              </li>
+              <li class="flex items-start gap-3 font-body text-sm text-stone-lighter">
+                <span class="text-blue-400 mt-0.5 flex-shrink-0"><i class="fa-solid fa-check-circle text-xs"></i></span>
+                <span>Publicación y despliegue en <strong class="text-cream">GitHub Pages</strong></span>
+              </li>
+              <li class="flex items-start gap-3 font-body text-sm text-stone-lighter">
+                <span class="text-blue-400 mt-0.5 flex-shrink-0"><i class="fa-solid fa-check-circle text-xs"></i></span>
+                <span>Implementación de lógica de juego con JavaScript puro</span>
+              </li>
+              <li class="flex items-start gap-3 font-body text-sm text-stone-lighter">
+                <span class="text-blue-400 mt-0.5 flex-shrink-0"><i class="fa-solid fa-check-circle text-xs"></i></span>
+                <span>Diseño responsive y estético con HTML5 + CSS3</span>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <p class="font-body text-xs text-stone-DEFAULT uppercase tracking-widest mb-4">Stack técnico</p>
+            <div class="flex flex-wrap gap-2 mb-6">
+              <span class="tag" style="border-color: rgba(249,115,22,.3); background: rgba(249,115,22,.07); color: #fb923c;">
+                <i class="fa-brands fa-html5"></i> HTML5
+              </span>
+              <span class="tag" style="border-color: rgba(59,130,246,.3); background: rgba(59,130,246,.07); color: #60a5fa;">
+                <i class="fa-brands fa-css3-alt"></i> CSS3
+              </span>
+              <span class="tag" style="border-color: rgba(234,179,8,.3); background: rgba(234,179,8,.07); color: #facc15;">
+                <i class="fa-brands fa-js"></i> JavaScript
+              </span>
+              <span class="tag" style="border-color: rgba(100,116,139,.3); background: rgba(100,116,139,.07); color: #94a3b8;">
+                <i class="fa-brands fa-github"></i> GitHub
+              </span>
+            </div>
+
+            <!-- Link al juego -->
+            <a href="https://diegodelangelmedina-oss.github.io/impacto-preciso/"
+               target="_blank" rel="noopener"
+               class="flex items-center gap-3 p-4 rounded-xl transition-all duration-300 group"
+               style="background: rgba(16,185,129,.06); border: 1px solid rgba(16,185,129,.18);">
+              <div class="w-10 h-10 rounded-lg bg-emerald-DEFAULT/10 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-DEFAULT/20 transition-colors">
+                <i class="fa-solid fa-gamepad text-emerald-DEFAULT"></i>
+              </div>
+              <div>
+                <p class="font-body text-cream text-sm font-medium">Impacto Preciso</p>
+                <p class="font-body text-emerald-DEFAULT text-xs">Jugar ahora →</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ── Experiencia 3: Mecánica Automotriz ── -->
+      <div class="reveal delay-3 exp-card rounded-2xl p-8 relative overflow-hidden">
+        <div class="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl"
+             style="background: linear-gradient(180deg, #d97706, #92400e);"></div>
+
+        <div class="grid md:grid-cols-3 gap-8 items-start pl-4">
+          <div class="md:col-span-2">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 rounded-lg flex items-center justify-center text-earth-light"
+                   style="background: rgba(217,119,6,.1); border: 1px solid rgba(217,119,6,.2);">
+                <i class="fa-solid fa-car-engine text-lg"></i>
+              </div>
+              <div>
+                <h3 class="font-display text-2xl text-cream font-semibold">Mecánica Automotriz</h3>
+                <p class="font-body text-earth-light text-sm">Mantenimiento y diagnóstico de vehículos</p>
+              </div>
+            </div>
+            <p class="font-body text-stone-lighter text-sm leading-relaxed mb-5">
+              Aplicación de conocimientos técnicos en mecánica automotriz, desde mantenimientos preventivos
+              hasta reparaciones correctivas menores, con capacidad de diagnóstico mediante diagramas técnicos.
+            </p>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-3 font-body text-sm text-stone-lighter">
+                <span class="text-earth-light mt-0.5 flex-shrink-0"><i class="fa-solid fa-check-circle text-xs"></i></span>
+                <span>Realización de <strong class="text-cream">mantenimientos básicos</strong>: cambio de aceite, filtros, bujías y revisiones generales</span>
+              </li>
+              <li class="flex items-start gap-3 font-body text-sm text-stone-lighter">
+                <span class="text-earth-light mt-0.5 flex-shrink-0"><i class="fa-solid fa-check-circle text-xs"></i></span>
+                <span><strong class="text-cream">Reparaciones menores de motores</strong>: identificación y corrección de fallas comunes</span>
+              </li>
+              <li class="flex items-start gap-3 font-body text-sm text-stone-lighter">
+                <span class="text-earth-light mt-0.5 flex-shrink-0"><i class="fa-solid fa-check-circle text-xs"></i></span>
+                <span><strong class="text-cream">Lectura e interpretación</strong> de diagramas y esquemas automotrices</span>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <p class="font-body text-xs text-stone-DEFAULT uppercase tracking-widest mb-4">Conocimientos</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="tag" style="border-color: rgba(217,119,6,.3); background: rgba(217,119,6,.07); color: #d97706;">
+                <i class="fa-solid fa-oil-can"></i> Mantenimiento
+              </span>
+              <span class="tag" style="border-color: rgba(217,119,6,.3); background: rgba(217,119,6,.07); color: #d97706;">
+                <i class="fa-solid fa-wrench"></i> Reparación
+              </span>
+              <span class="tag" style="border-color: rgba(217,119,6,.3); background: rgba(217,119,6,.07); color: #d97706;">
+                <i class="fa-solid fa-diagram-project"></i> Diagramas
+              </span>
+              <span class="tag" style="border-color: rgba(217,119,6,.3); background: rgba(217,119,6,.07); color: #d97706;">
+                <i class="fa-solid fa-magnifying-glass"></i> Diagnóstico
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /space-y-10 -->
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════╗
+     ║        HABILIDADES           ║
+     ╚══════════════════════════════╝ -->
+<section id="habilidades" class="py-28 px-6 relative"
+         style="background: linear-gradient(180deg, #111009 0%, #0d0b09 100%);">
+
+  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-DEFAULT/20 to-transparent"></div>
+
+  <div class="max-w-6xl mx-auto">
+
+    <div class="reveal text-center mb-20">
+      <p class="text-emerald-DEFAULT text-xs tracking-[.2em] uppercase font-body mb-3">Competencias</p>
+      <h2 class="font-display text-4xl md:text-5xl font-semibold text-cream mb-4">
+        Mis <em class="gradient-text">Habilidades</em>
+      </h2>
+      <div class="divider mx-auto"></div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-16">
+
+      <!-- Barras de habilidades -->
+      <div class="reveal reveal-left space-y-8">
+        <h3 class="font-display text-xl text-cream font-semibold mb-6">Nivel de dominio</h3>
+
+        <!-- skill: HTML -->
+        <div data-skill="85">
+          <div class="flex justify-between font-body text-sm mb-2">
+            <span class="text-stone-lighter flex items-center gap-2"><i class="fa-brands fa-html5 text-orange-400"></i> HTML5</span>
+            <span class="text-emerald-DEFAULT">85%</span>
+          </div>
+          <div class="h-0.5 bg-soil-mid rounded-full overflow-hidden">
+            <div class="skill-bar-fill" style="--target: 85%;"></div>
+          </div>
+        </div>
+
+        <!-- skill: CSS -->
+        <div data-skill="80">
+          <div class="flex justify-between font-body text-sm mb-2">
+            <span class="text-stone-lighter flex items-center gap-2"><i class="fa-brands fa-css3-alt text-blue-400"></i> CSS3</span>
+            <span class="text-emerald-DEFAULT">80%</span>
+          </div>
+          <div class="h-0.5 bg-soil-mid rounded-full overflow-hidden">
+            <div class="skill-bar-fill" style="--target: 80%;"></div>
+          </div>
+        </div>
+
+        <!-- skill: JS -->
+        <div data-skill="70">
+          <div class="flex justify-between font-body text-sm mb-2">
+            <span class="text-stone-lighter flex items-center gap-2"><i class="fa-brands fa-js text-yellow-400"></i> JavaScript</span>
+            <span class="text-emerald-DEFAULT">70%</span>
+          </div>
+          <div class="h-0.5 bg-soil-mid rounded-full overflow-hidden">
+            <div class="skill-bar-fill" style="--target: 70%;"></div>
+          </div>
+        </div>
+
+        <!-- skill: MS365 -->
+        <div data-skill="90">
+          <div class="flex justify-between font-body text-sm mb-2">
+            <span class="text-stone-lighter flex items-center gap-2"><i class="fa-brands fa-microsoft text-blue-500"></i> Microsoft 365</span>
+            <span class="text-emerald-DEFAULT">90%</span>
+          </div>
+          <div class="h-0.5 bg-soil-mid rounded-full overflow-hidden">
+            <div class="skill-bar-fill" style="--target: 90%;"></div>
+          </div>
+        </div>
+
+        <!-- skill: Mecánica -->
+        <div data-skill="65">
+          <div class="flex justify-between font-body text-sm mb-2">
+            <span class="text-stone-lighter flex items-center gap-2"><i class="fa-solid fa-wrench text-earth-light"></i> Mecánica Automotriz</span>
+            <span class="text-emerald-DEFAULT">65%</span>
+          </div>
+          <div class="h-0.5 bg-soil-mid rounded-full overflow-hidden">
+            <div class="skill-bar-fill" style="--target: 65%;"></div>
+          </div>
+        </div>
+
+        <!-- skill: Textil -->
+        <div data-skill="75">
+          <div class="flex justify-between font-body text-sm mb-2">
+            <span class="text-stone-lighter flex items-center gap-2"><i class="fa-solid fa-shirt text-emerald-DEFAULT"></i> Industria Textil</span>
+            <span class="text-emerald-DEFAULT">75%</span>
+          </div>
+          <div class="h-0.5 bg-soil-mid rounded-full overflow-hidden">
+            <div class="skill-bar-fill" style="--target: 75%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Certificaciones Microsoft -->
+      <div class="reveal reveal-right">
+        <h3 class="font-display text-xl text-cream font-semibold mb-6">Certificaciones Microsoft 365</h3>
+        <div class="space-y-4">
+
+          <!-- Word -->
+          <div class="exp-card rounded-xl p-4 flex items-center gap-4">
+            <div class="w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0"
+                 style="background: rgba(59,130,246,.1); border: 1px solid rgba(59,130,246,.2);">
+              <i class="fa-solid fa-file-word text-blue-400 text-lg"></i>
+            </div>
+            <div class="flex-1">
+              <p class="font-body text-cream text-sm font-medium">Microsoft Word</p>
+              <p class="font-body text-stone-DEFAULT text-xs">Certificación Oficial Microsoft</p>
+            </div>
+            <span class="text-emerald-DEFAULT text-sm"><i class="fa-solid fa-circle-check"></i></span>
+          </div>
+
+          <!-- Excel -->
+          <div class="exp-card rounded-xl p-4 flex items-center gap-4">
+            <div class="w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0"
+                 style="background: rgba(34,197,94,.1); border: 1px solid rgba(34,197,94,.2);">
+              <i class="fa-solid fa-file-excel text-green-400 text-lg"></i>
+            </div>
+            <div class="flex-1">
+              <p class="font-body text-cream text-sm font-medium">Microsoft Excel</p>
+              <p class="font-body text-stone-DEFAULT text-xs">Certificación Oficial Microsoft</p>
+            </div>
+            <span class="text-emerald-DEFAULT text-sm"><i class="fa-solid fa-circle-check"></i></span>
+          </div>
+
+          <!-- PowerPoint -->
+          <div class="exp-card rounded-xl p-4 flex items-center gap-4">
+            <div class="w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0"
+                 style="background: rgba(249,115,22,.1); border: 1px solid rgba(249,115,22,.2);">
+              <i class="fa-solid fa-file-powerpoint text-orange-400 text-lg"></i>
+            </div>
+            <div class="flex-1">
+              <p class="font-body text-cream text-sm font-medium">Microsoft PowerPoint</p>
+              <p class="font-body text-stone-DEFAULT text-xs">Certificación Oficial Microsoft</p>
+            </div>
+            <span class="text-emerald-DEFAULT text-sm"><i class="fa-solid fa-circle-check"></i></span>
+          </div>
+
+          <!-- Teams -->
+          <div class="exp-card rounded-xl p-4 flex items-center gap-4">
+            <div class="w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0"
+                 style="background: rgba(139,92,246,.1); border: 1px solid rgba(139,92,246,.2);">
+              <i class="fa-brands fa-microsoft text-purple-400 text-lg"></i>
+            </div>
+            <div class="flex-1">
+              <p class="font-body text-cream text-sm font-medium">Microsoft Teams</p>
+              <p class="font-body text-stone-DEFAULT text-xs">Certificación Oficial Microsoft</p>
+            </div>
+            <span class="text-emerald-DEFAULT text-sm"><i class="fa-solid fa-circle-check"></i></span>
+          </div>
+
+          <!-- Outlook -->
+          <div class="exp-card rounded-xl p-4 flex items-center gap-4">
+            <div class="w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0"
+                 style="background: rgba(14,165,233,.1); border: 1px solid rgba(14,165,233,.2);">
+              <i class="fa-solid fa-envelope text-sky-400 text-lg"></i>
+            </div>
+            <div class="flex-1">
+              <p class="font-body text-cream text-sm font-medium">Microsoft Outlook</p>
+              <p class="font-body text-stone-DEFAULT text-xs">Certificación Oficial Microsoft</p>
+            </div>
+            <span class="text-emerald-DEFAULT text-sm"><i class="fa-solid fa-circle-check"></i></span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════╗
+     ║        EDUCACIÓN             ║
+     ╚══════════════════════════════╝ -->
+<section id="educacion" class="py-28 px-6 relative"
+         style="background: #111009;">
+
+  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-DEFAULT/20 to-transparent"></div>
+
+  <div class="max-w-4xl mx-auto">
+
+    <div class="reveal text-center mb-20">
+      <p class="text-emerald-DEFAULT text-xs tracking-[.2em] uppercase font-body mb-3">Formación</p>
+      <h2 class="font-display text-4xl md:text-5xl font-semibold text-cream mb-4">
+        <em class="gradient-text">Educación</em>
+      </h2>
+      <div class="divider mx-auto"></div>
+    </div>
+
+    <!-- Timeline item único -->
+    <div class="reveal delay-1 flex gap-6">
+
+      <!-- Timeline visual -->
+      <div class="flex flex-col items-center pt-1">
+        <div class="timeline-dot"></div>
+        <div class="timeline-line flex-1 mt-2"></div>
+      </div>
+
+      <!-- Contenido -->
+      <div class="exp-card rounded-2xl p-8 flex-1 mb-10">
+        <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+          <div>
+            <h3 class="font-display text-2xl text-cream font-semibold">CONALEP</h3>
+            <p class="font-body text-emerald-DEFAULT text-sm mt-1">Ing. Adrián Sada Treviño</p>
+          </div>
+          <span class="tag text-xs"><i class="fa-solid fa-graduation-cap"></i> Egresado</span>
+        </div>
+
+        <p class="font-body text-stone-lighter text-sm leading-relaxed mb-6">
+          Formación técnica de nivel medio superior orientada a la industria y la productividad,
+          con énfasis en procesos industriales, gestión de la calidad, mantenimiento y herramientas
+          de productividad digital.
+        </p>
+
+        <!-- Carrera highlight -->
+        <div class="p-5 rounded-xl"
+             style="background: linear-gradient(135deg, rgba(16,185,129,.08), rgba(217,119,6,.05)); border: 1px solid rgba(16,185,129,.15);">
+          <div class="flex items-center gap-3 mb-2">
+            <i class="fa-solid fa-certificate text-emerald-DEFAULT"></i>
+            <p class="font-body text-cream text-sm font-semibold">Técnico en Productividad Industrial (PTB)</p>
+          </div>
+          <p class="font-body text-stone-lighter text-xs leading-relaxed">
+            Título de Profesional Técnico Bachiller que integra formación propedéutica con capacitación
+            técnica en áreas de producción, calidad, logística y tecnologías de información.
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════╗
+     ║        PROYECTO DESTACADO    ║
+     ╚══════════════════════════════╝ -->
+<section class="py-20 px-6 relative overflow-hidden"
+         style="background: linear-gradient(135deg, #0d0b09 0%, #111a14 50%, #0d0b09 100%);">
+
+  <div class="absolute inset-0 pointer-events-none"
+       style="background: radial-gradient(ellipse 50% 60% at 50% 50%, rgba(16,185,129,.05) 0%, transparent 70%);"></div>
+
+  <div class="max-w-3xl mx-auto text-center">
+    <div class="reveal">
+      <p class="text-emerald-DEFAULT text-xs tracking-[.2em] uppercase font-body mb-3">Proyecto destacado</p>
+      <h2 class="font-display text-4xl md:text-5xl font-semibold text-cream mb-4">
+        Impacto <em class="gradient-text">Preciso</em>
+      </h2>
+      <div class="divider mx-auto mb-6"></div>
+      <p class="font-body text-stone-lighter text-base mb-10 max-w-xl mx-auto">
+        Videojuego web desarrollado completamente desde cero con HTML, CSS y JavaScript puro.
+        Una muestra del potencial creativo y técnico en desarrollo frontend.
+      </p>
+
+      <!-- Preview card -->
+      <div class="reveal delay-2 exp-card rounded-2xl p-10 mb-8 glow"
+           style="background: linear-gradient(135deg, #1e1a16, #1a2218);">
+        <div class="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 text-emerald-DEFAULT text-4xl glow"
+             style="background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.25);">
+          <i class="fa-solid fa-crosshairs"></i>
+        </div>
+        <h3 class="font-display text-2xl text-cream font-semibold mb-2">Impacto Preciso</h3>
+        <p class="font-body text-stone-lighter text-sm mb-6">
+          Juego de precisión y reflejos. Pon a prueba tu puntería y velocidad de reacción.
+        </p>
+        <div class="flex flex-wrap gap-2 justify-center mb-8">
+          <span class="tag" style="color:#fb923c; border-color:rgba(249,115,22,.3); background:rgba(249,115,22,.07);">
+            <i class="fa-brands fa-html5"></i> HTML5
+          </span>
+          <span class="tag" style="color:#60a5fa; border-color:rgba(59,130,246,.3); background:rgba(59,130,246,.07);">
+            <i class="fa-brands fa-css3-alt"></i> CSS3
+          </span>
+          <span class="tag" style="color:#facc15; border-color:rgba(234,179,8,.3); background:rgba(234,179,8,.07);">
+            <i class="fa-brands fa-js"></i> JS
+          </span>
+        </div>
+        <a href="https://diegodelangelmedina-oss.github.io/impacto-preciso/"
+           target="_blank" rel="noopener"
+           class="btn-primary inline-block uppercase tracking-widest text-xs">
+          <i class="fa-solid fa-play mr-2"></i>Jugar ahora
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ╔══════════════════════════════╗
+     ║        CONTACTO / FOOTER     ║
+     ╚══════════════════════════════╝ -->
+<footer id="contacto" class="py-20 px-6 relative"
+        style="background: #0a0807; border-top: 1px solid rgba(16,185,129,.08);">
+
+  <div class="max-w-4xl mx-auto text-center">
+
+    <div class="reveal mb-12">
+      <p class="text-emerald-DEFAULT text-xs tracking-[.2em] uppercase font-body mb-3">¿Hablamos?</p>
+      <h2 class="font-display text-4xl md:text-5xl font-semibold text-cream mb-4">
+        Contacto &amp; <em class="gradient-text">Redes</em>
+      </h2>
+      <div class="divider mx-auto mb-6"></div>
+      <p class="font-body text-stone-lighter text-base max-w-md mx-auto">
+        ¿Tienes un proyecto, oferta o simplemente quieres saludar?
+        Encuéntrame en redes o revisa mi trabajo en GitHub.
+      </p>
+    </div>
+
+    <!-- Social links -->
+    <div class="reveal delay-2 flex flex-wrap gap-4 justify-center mb-16">
+
+      <a href="https://github.com/diegodelangelmedina-oss"
+         target="_blank" rel="noopener"
+         class="flex items-center gap-3 px-6 py-3 rounded-xl font-body text-sm transition-all duration-300 hover:-translate-y-1"
+         style="background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); color: var(--c-text);">
+        <i class="fa-brands fa-github text-lg"></i>
+        GitHub
+      </a>
+
+      <a href="https://diegodelangelmedina-oss.github.io/impacto-preciso/"
+         target="_blank" rel="noopener"
+         class="flex items-center gap-3 px-6 py-3 rounded-xl font-body text-sm transition-all duration-300 hover:-translate-y-1"
+         style="background: rgba(16,185,129,.06); border: 1px solid rgba(16,185,129,.2); color: #34d399;">
+        <i class="fa-solid fa-gamepad text-lg"></i>
+        Impacto Preciso
+      </a>
+
+    </div>
+
+    <!-- Divider -->
+    <div class="w-full h-px mb-8"
+         style="background: linear-gradient(90deg, transparent, rgba(16,185,129,.15), transparent);"></div>
+
+    <!-- Bottom bar -->
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4 font-body text-stone-DEFAULT text-xs">
+      <p>© 2024 <span class="text-emerald-DEFAULT">Diego del Ángel Medina</span>. Todos los derechos reservados.</p>
+      <p class="flex items-center gap-2">
+        Hecho con <i class="fa-solid fa-heart text-emerald-DEFAULT text-xs"></i> en Monterrey, NL
+      </p>
+    </div>
+
+  </div>
+</footer>
+
+
+<!-- ╔══════════════════════════════╗
+     ║        SCRIPTS               ║
+     ╚══════════════════════════════╝ -->
+<script>
+/* ─────────────────────────────────────────
+   1. Navbar scroll effect
+───────────────────────────────────────── */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 30);
+}, { passive: true });
+
+
+/* ─────────────────────────────────────────
+   2. Mobile menu toggle
+───────────────────────────────────────── */
+const hamburger    = document.getElementById('hamburger');
+const mobileMenu   = document.getElementById('mobile-menu');
+
+hamburger.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  hamburger.innerHTML = open
+    ? '<i class="fa-solid fa-xmark text-xl"></i>'
+    : '<i class="fa-solid fa-bars text-xl"></i>';
+});
+
+function closeMobileMenu() {
+  mobileMenu.classList.remove('open');
+  hamburger.innerHTML = '<i class="fa-solid fa-bars text-xl"></i>';
+}
+
+
+/* ─────────────────────────────────────────
+   3. Scroll reveal (IntersectionObserver)
+───────────────────────────────────────── */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+
+/* ─────────────────────────────────────────
+   4. Skill bars animation
+───────────────────────────────────────── */
+const skillObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const fills = entry.target.querySelectorAll('.skill-bar-fill');
+      fills.forEach(fill => {
+        const target = fill.style.getPropertyValue('--target');
+        fill.style.width = target;
+      });
+      skillObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('[data-skill]').forEach(el => skillObserver.observe(el));
+
+
+/* ─────────────────────────────────────────
+   5. Hero canvas particles
+───────────────────────────────────────── */
+(function initParticles() {
+  const canvas = document.getElementById('hero-canvas');
+  const ctx    = canvas.getContext('2d');
+
+  let W, H, particles = [];
+
+  const resize = () => {
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  };
+  window.addEventListener('resize', resize, { passive: true });
+  resize();
+
+  /* Generate particles */
+  const NUM = 60;
+  for (let i = 0; i < NUM; i++) {
+    particles.push({
+      x:    Math.random() * W,
+      y:    Math.random() * H,
+      r:    Math.random() * 1.5 + 0.3,
+      dx:   (Math.random() - .5) * .4,
+      dy:   (Math.random() - .5) * .4,
+      alpha: Math.random() * .5 + .1,
     });
+  }
 
-    // Scroll Reveal Animation
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+  const EMERALD = '16,185,129';
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    /* Draw connections */
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const p  = particles[i], q = particles[j];
+        const dx = p.x - q.x, dy = p.y - q.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 130) {
+          ctx.strokeStyle = `rgba(${EMERALD},${(.12 * (1 - dist/130)).toFixed(3)})`;
+          ctx.lineWidth   = .6;
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(q.x, q.y);
+          ctx.stroke();
         }
-      });
-    }, { threshold: 0.15 });
-
-    reveals.forEach(el => observer.observe(el));
-
-    // Hero Canvas Particles
-    const canvas = document.getElementById('hero-canvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-
-    function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 0.5;
-        this.speedX = Math.random() * 0.6 - 0.3;
-        this.speedY = Math.random() * 0.6 - 0.3;
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-      }
-      draw() {
-        ctx.fillStyle = 'rgba(16, 185, 129, 0.7)';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
       }
     }
 
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
-      requestAnimationFrame(animate);
-    }
+    /* Draw dots */
+    particles.forEach(p => {
+      ctx.fillStyle = `rgba(${EMERALD},${p.alpha.toFixed(2)})`;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
 
-    window.addEventListener('resize', () => {
-      resize();
-      particles = [];
-      for (let i = 0; i < 80; i++) particles.push(new Particle());
+      p.x += p.dx;
+      p.y += p.dy;
+
+      if (p.x < 0 || p.x > W) p.dx *= -1;
+      if (p.y < 0 || p.y > H) p.dy *= -1;
     });
 
-    resize();
-    for (let i = 0; i < 80; i++) particles.push(new Particle());
-    animate();
-  </script>
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+})();
+</script>
+
 </body>
 </html>
