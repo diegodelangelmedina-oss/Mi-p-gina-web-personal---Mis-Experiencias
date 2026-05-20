@@ -15,6 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <script>
+    // Configuración de Tailwind
     tailwind.config = {
       content: ["**/*"],
       theme: {
@@ -23,7 +24,7 @@
             emerald: { DEFAULT: '#10b981', dark: '#059669' },
             earth:   { DEFAULT: '#d97706' },
             cream:   '#f5f0e8',
-            stone:   { light: '#a8a29e', DEFAULT: '#78716c' }
+            stone:   { light: '#a8a29e' }
           },
           fontFamily: {
             display: ['Cormorant Garamond', 'serif'],
@@ -35,18 +36,11 @@
   </script>
 
   <style>
-    :root {
-      --c-bg: #0d0b09;
-      --c-card: #1e1a16;
-      --c-emerald: #10b981;
-    }
-
     body {
-      background: var(--c-bg);
+      background: #0d0b09;
       color: #e5e0d8;
       font-family: 'DM Sans', sans-serif;
     }
-
     .font-display { font-family: 'Cormorant Garamond', serif; }
 
     .reveal {
@@ -60,7 +54,7 @@
     }
 
     .exp-card {
-      background: var(--c-card);
+      background: #1e1a16;
       border: 1px solid rgba(16,185,129,0.2);
       transition: all 0.4s ease;
     }
@@ -75,23 +69,14 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-
-    /* Canvas particles */
-    #hero-canvas {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-    }
   </style>
 </head>
 <body>
 
   <!-- Navbar -->
-  <nav id="navbar" class="fixed top-0 w-full z-50 bg-[#0d0b09]/90 backdrop-blur-md border-b border-emerald-900/30">
+  <nav id="navbar" class="fixed top-0 w-full z-50 bg-[#0d0b09]/95 backdrop-blur-md border-b border-emerald-900/30">
     <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
-      <a href="#" class="font-display text-2xl tracking-wide">D. del Ángel</a>
-      
+      <a href="#" class="font-display text-2xl">D. del Ángel</a>
       <div class="hidden md:flex gap-8 text-sm">
         <a href="#sobre-mi" class="hover:text-emerald-400 transition">Sobre mí</a>
         <a href="#experiencias" class="hover:text-emerald-400 transition">Experiencias</a>
@@ -101,43 +86,47 @@
     </div>
   </nav>
 
-  <!-- Resto del código original de Claude (mantengo la estructura principal) -->
-  <!-- Hero -->
+  <!-- Hero Section -->
   <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
-    <canvas id="hero-canvas"></canvas>
-    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto pt-16">
+    <canvas id="hero-canvas" class="absolute inset-0"></canvas>
+    
+    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
       <h1 class="font-display text-6xl md:text-7xl font-semibold leading-none mb-6">
         Diego del Ángel<br><span class="gradient-text">Medina</span>
       </h1>
-      <p class="text-xl text-emerald-300 mb-8">Técnico en Productividad Industrial</p>
+      <p class="text-2xl text-emerald-300 mb-10">Técnico en Productividad Industrial</p>
+      <a href="#experiencias" class="inline-block bg-emerald-600 hover:bg-emerald-500 px-10 py-4 rounded-full text-lg font-medium transition">
+        Ver mis experiencias
+      </a>
     </div>
   </section>
 
-  <!-- El resto de secciones las mantengo resumidas para que funcione bien -->
-  <!-- Puedes ir añadiendo poco a poco las secciones completas que quieras -->
+  <!-- Resto del contenido (puedes ir añadiendo las secciones de Claude poco a poco) -->
 
   <script>
-    // Navbar scroll
+    // Navbar scroll effect
     window.addEventListener('scroll', () => {
-      document.getElementById('navbar').classList.toggle('shadow-xl', window.scrollY > 50);
+      document.getElementById('navbar').classList.toggle('shadow-2xl', window.scrollY > 30);
     });
 
-    // Scroll Reveal
+    // Scroll Reveal Animation
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.15 });
 
     reveals.forEach(el => observer.observe(el));
 
-    // Particles Canvas
+    // Hero Canvas Particles
     const canvas = document.getElementById('hero-canvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
 
-    function resizeCanvas() {
+    function resize() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     }
@@ -147,8 +136,8 @@
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
         this.size = Math.random() * 2 + 0.5;
-        this.speedX = Math.random() * 0.5 - 0.25;
-        this.speedY = Math.random() * 0.5 - 0.25;
+        this.speedX = Math.random() * 0.6 - 0.3;
+        this.speedY = Math.random() * 0.6 - 0.3;
       }
       update() {
         this.x += this.speedX;
@@ -157,37 +146,31 @@
         if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
       }
       draw() {
-        ctx.fillStyle = 'rgba(16, 185, 129, 0.6)';
+        ctx.fillStyle = 'rgba(16, 185, 129, 0.7)';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
       }
     }
 
-    function initParticles() {
-      particles = [];
-      for (let i = 0; i < 80; i++) {
-        particles.push(new Particle());
-      }
-    }
-
-    function animateParticles() {
+    function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       particles.forEach(p => {
         p.update();
         p.draw();
       });
-      requestAnimationFrame(animateParticles);
+      requestAnimationFrame(animate);
     }
 
     window.addEventListener('resize', () => {
-      resizeCanvas();
-      initParticles();
+      resize();
+      particles = [];
+      for (let i = 0; i < 80; i++) particles.push(new Particle());
     });
 
-    resizeCanvas();
-    initParticles();
-    animateParticles();
+    resize();
+    for (let i = 0; i < 80; i++) particles.push(new Particle());
+    animate();
   </script>
 </body>
 </html>
