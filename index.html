@@ -3,41 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diego del Ángel | Mis Experiencias</title>
+    <title>Diego del Ángel Medina | Mis Experiencias</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
         body { font-family: 'Inter', system-ui, sans-serif; }
         .title { font-family: 'Playfair Display', sans-serif; }
-        .card-hover:hover { transform: translateY(-12px); }
+        .card-hover:hover { transform: translateY(-12px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
     </style>
 </head>
 <body class="bg-zinc-950 text-white">
 
     <!-- Hero -->
-    <section class="min-h-screen bg-gradient-to-br from-zinc-900 to-black flex items-center">
+    <section class="min-h-screen bg-gradient-to-br from-emerald-950 via-zinc-900 to-amber-950 flex items-center relative">
         <div class="max-w-6xl mx-auto px-6 text-center">
-            <h1 class="text-6xl md:text-7xl font-bold title mb-6">
+            <h1 class="text-5xl md:text-7xl font-bold title mb-4">
                 Diego del Ángel Medina
             </h1>
-            <p class="text-3xl text-red-400 mb-6">Mis Experiencias</p>
-            <p class="max-w-2xl mx-auto text-xl text-zinc-300">
-                Bienvenido a mi viaje personal y profesional. Aquí comparto mis proyectos, aprendizajes y momentos importantes.
+            <p class="text-2xl md:text-3xl text-emerald-400 mb-8">Mis Experiencias y Aprendizajes</p>
+            <p class="max-w-2xl mx-auto text-lg text-zinc-300">
+                Técnico en Productividad Industrial con experiencia en manufactura textil, mecánica automotriz y desarrollo web.
             </p>
         </div>
     </section>
 
-    <!-- Sobre mí -->
+    <!-- Sobre Mí -->
     <section class="py-20 bg-zinc-900">
         <div class="max-w-5xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12">Sobre Mí</h2>
+            <h2 class="text-4xl font-bold text-center mb-12 title">Sobre Mí</h2>
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div>
-                    <img src="https://via.placeholder.com/550x650" alt="Diego" class="rounded-3xl">
+                    <img src="https://via.placeholder.com/550x650/1f2937/ffffff?text=Diego" 
+                         alt="Diego del Ángel" class="rounded-3xl shadow-2xl">
                 </div>
-                <div class="space-y-6 text-lg">
-                    <p>Estudiante y emprendedor con pasión por crear, aprender y dejar huella.</p>
-                    <p>Me interesa el desarrollo web, emprendimiento y todo lo que implique crecer tanto personal como profesionalmente.</p>
+                <div class="space-y-6 text-lg text-zinc-300">
+                    <p>
+                        Soy un técnico en Productividad Industrial egresado del CONALEP Ing. Adrián Sada Treviño. 
+                        Me apasiona resolver problemas prácticos, ya sea en mecánica automotriz, procesos de producción o desarrollo digital.
+                    </p>
+                    <p>
+                        Combino habilidades técnicas manuales con herramientas digitales. Siempre busco aprender y mejorar.
+                    </p>
                 </div>
             </div>
         </div>
@@ -46,40 +52,68 @@
     <!-- Experiencias -->
     <section class="py-20">
         <div class="max-w-6xl mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12">Mis Experiencias</h2>
+            <h2 class="text-4xl font-bold text-center mb-12 title">Mis Experiencias</h2>
             
-            <div class="grid md:grid-cols-2 gap-8" id="experiencias-container">
-                <!-- Aquí irán todas tus experiencias -->
+            <div class="grid md:grid-cols-2 gap-8">
+
+                <!-- Fabricó Textiles -->
+                <div class="bg-zinc-900 p-8 rounded-3xl card-hover">
+                    <div class="text-4xl mb-4">🧵</div>
+                    <h3 class="text-2xl font-bold mb-1">Encargado de Corte y Sublimación</h3>
+                    <p class="text-emerald-400 mb-4">Fabricó Textiles • 2024 - 2025</p>
+                    <ul class="space-y-3 text-zinc-300">
+                        <li class="flex gap-2"><span class="text-emerald-500">•</span> Encargado del área de corte de playeras</li>
+                        <li class="flex gap-2"><span class="text-emerald-500">•</span> Manejo de planchas térmicas para diseño y color</li>
+                        <li class="flex gap-2"><span class="text-emerald-500">•</span> Operación de calandra de sublimación</li>
+                        <li class="flex gap-2"><span class="text-emerald-500">•</span> Costura básica y control de calidad</li>
+                    </ul>
+                </div>
+
+                <!-- Mecánica Automotriz -->
+                <div class="bg-zinc-900 p-8 rounded-3xl card-hover">
+                    <div class="text-4xl mb-4">🔧</div>
+                    <h3 class="text-2xl font-bold mb-1">Mecánica Automotriz</h3>
+                    <p class="text-emerald-400 mb-4">Conocimientos Prácticos</p>
+                    <ul class="space-y-3 text-zinc-300">
+                        <li class="flex gap-2"><span class="text-emerald-500">•</span> Mantenimientos básicos y preventivos</li>
+                        <li class="flex gap-2"><span class="text-emerald-500">•</span> Diagnóstico y reparación básica de motores</li>
+                        <li class="flex gap-2"><span class="text-emerald-500">•</span> Lectura e interpretación de diagramas automotrices</li>
+                        <li class="flex gap-2"><span class="text-emerald-500">•</span> Reparaciones menores</li>
+                    </ul>
+                </div>
+
+                <!-- Certificaciones Microsoft -->
+                <div class="bg-zinc-900 p-8 rounded-3xl card-hover">
+                    <div class="text-4xl mb-4">📘</div>
+                    <h3 class="text-2xl font-bold mb-1">Certificaciones Microsoft 365</h3>
+                    <p class="text-emerald-400 mb-4">Microsoft • Oficiales</p>
+                    <p class="text-zinc-300">
+                        Certificado en herramientas de productividad: Word, Excel, PowerPoint, Teams y Outlook avanzado.
+                    </p>
+                </div>
+
+                <!-- Desarrollo Web -->
+                <div class="bg-zinc-900 p-8 rounded-3xl card-hover">
+                    <div class="text-4xl mb-4">💻</div>
+                    <h3 class="text-2xl font-bold mb-1">Desarrollo Web</h3>
+                    <p class="text-emerald-400 mb-4">HTML + CSS + JavaScript</p>
+                    <p class="text-zinc-300">
+                        Creación de páginas web, incluyendo este portafolio y el proyecto "Impacto Preciso".
+                    </p>
+                    <a href="https://diegodelangelmedina-oss.github.io/impacto-preciso/" 
+                       target="_blank"
+                       class="inline-block mt-4 text-emerald-400 hover:text-emerald-300 underline">
+                        Ver proyecto Impacto Preciso →
+                    </a>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <footer class="bg-black py-10 text-center text-zinc-500">
-        <p>© 2026 Diego del Ángel Medina • Mis Experiencias</p>
+    <footer class="bg-black py-12 text-center text-zinc-500">
+        <p>© 2026 Diego del Ángel Medina • Todos los derechos reservados</p>
+        <p class="mt-2">Técnico en Productividad Industrial | CONALEP Ing. Adrián Sada Treviño</p>
     </footer>
-
-    <script>
-        const experiencias = [
-            {
-                titulo: "Impacto Preciso",
-                subtitulo: "Proyecto Universitario - Formación de Emprendedores",
-                descripcion: "Juego interactivo de precisión con ranking global en tiempo real usando Firebase.",
-                icon: "🎯"
-            },
-            // Agrega más experiencias aquí
-        ];
-
-        const container = document.getElementById('experiencias-container');
-        experiencias.forEach(exp => {
-            container.innerHTML += `
-                <div class="bg-zinc-900 p-8 rounded-3xl card-hover transition">
-                    <div class="text-5xl mb-4">${exp.icon}</div>
-                    <h3 class="text-2xl font-bold">${exp.titulo}</h3>
-                    <p class="text-red-400">${exp.subtitulo}</p>
-                    <p class="mt-4 text-zinc-400">${exp.descripcion}</p>
-                </div>
-            `;
-        });
-    </script>
 </body>
 </html>
