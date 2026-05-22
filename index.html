@@ -174,14 +174,25 @@
       border-radius: 2px;
     }
 
-    /* Anillo giratorio alrededor del avatar */
-    .avatar-ring {
-      background: conic-gradient(#10b981, #d97706, #10b981);
-      padding: 3px;
-      border-radius: 50%;
-      animation: spin-slow 8s linear infinite;
-    }
-    @keyframes spin-slow { to { transform: rotate(360deg); } }
+    <!-- Foto personal con anillo giratorio -->
+<div class="reveal reveal-left flex justify-center md:justify-start">
+  <div class="relative">
+    <div class="avatar-ring w-64 h-64 md:w-72 md:h-72 flex items-center justify-center">
+      <div class="rounded-full w-full h-full overflow-hidden" style="margin: 3px;">
+        <img 
+          src="assets/avatar.jpg" 
+          alt="Diego del Ángel Medina" 
+          class="w-full h-full object-cover"
+        >
+      </div>
+    </div>
+    
+    <!-- Badge PTB -->
+    <div class="absolute -bottom-3 -right-3 bg-emerald-DEFAULT text-soil-dark text-xs font-body font-semibold px-3 py-1.5 rounded-full tracking-wide glow-sm">
+      PTB ✓
+    </div>
+  </div>
+</div>
 
     /* Estilos del timeline de educación */
     .timeline-dot {
