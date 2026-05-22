@@ -1,3 +1,4 @@
+cat > /mnt/user-data/outputs/index.html << 'ENDOFFILE'
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,19 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Diego del Ángel Medina | Mis Experiencias</title>
 
-  <!-- Tailwind CSS CDN -->
+  <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Font Awesome -->
+  <!-- Font Awesome para íconos -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  <!-- Google Fonts: Cormorant Garamond + DM Sans -->
+  <!-- Google Fonts: Cormorant Garamond (títulos) + DM Sans (cuerpo) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
+  <!-- Configuración de colores y fuentes personalizadas para Tailwind -->
   <script>
-    /* ── Tailwind Config ── */
     tailwind.config = {
       theme: {
         extend: {
@@ -38,7 +39,7 @@
   </script>
 
   <style>
-    /* ── Root Variables ── */
+    /* Variables globales de color */
     :root {
       --c-bg:        #0d0b09;
       --c-surface:   #161210;
@@ -50,9 +51,8 @@
       --c-muted:     #a8a29e;
     }
 
-    /* ── Base ── */
+    /* Reset base */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -63,7 +63,7 @@
       line-height: 1.7;
     }
 
-    /* ── Grain overlay ── */
+    /* Textura de grano sutil sobre toda la página */
     body::before {
       content: '';
       position: fixed;
@@ -74,10 +74,9 @@
       opacity: .5;
     }
 
-    /* ── Typography ── */
     .font-display { font-family: 'Cormorant Garamond', serif; }
 
-    /* ── Scroll reveal ── */
+    /* Animación de aparición al hacer scroll */
     .reveal {
       opacity: 0;
       transform: translateY(36px);
@@ -92,22 +91,18 @@
     .reveal-left.visible,
     .reveal-right.visible { transform: none; }
 
-    /* ── Stagger delays ── */
+    /* Retrasos escalonados para efecto cascada */
     .delay-1 { transition-delay: .1s; }
     .delay-2 { transition-delay: .2s; }
     .delay-3 { transition-delay: .3s; }
     .delay-4 { transition-delay: .4s; }
     .delay-5 { transition-delay: .5s; }
 
-    /* ── Emerald glow ── */
-    .glow {
-      box-shadow: 0 0 28px rgba(16,185,129,.18), 0 0 60px rgba(16,185,129,.06);
-    }
-    .glow-sm {
-      box-shadow: 0 0 14px rgba(16,185,129,.15);
-    }
+    /* Efecto de brillo esmeralda */
+    .glow    { box-shadow: 0 0 28px rgba(16,185,129,.18), 0 0 60px rgba(16,185,129,.06); }
+    .glow-sm { box-shadow: 0 0 14px rgba(16,185,129,.15); }
 
-    /* ── Gradient text ── */
+    /* Texto con degradado verde → dorado */
     .gradient-text {
       background: linear-gradient(135deg, #10b981 0%, #34d399 40%, #d97706 100%);
       -webkit-background-clip: text;
@@ -115,7 +110,7 @@
       background-clip: text;
     }
 
-    /* ── Nav ── */
+    /* Navbar fija: se vuelve opaca con blur al hacer scroll */
     #navbar {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -128,14 +123,14 @@
       box-shadow: 0 1px 0 var(--c-border);
     }
 
-    /* ── Hero canvas particles ── */
+    /* Canvas de partículas del Hero (detrás del contenido) */
     #hero-canvas {
       position: absolute;
       inset: 0;
       pointer-events: none;
     }
 
-    /* ── Card hover ── */
+    /* Tarjetas de experiencia con efecto hover de elevación */
     .exp-card {
       background: var(--c-card);
       border: 1px solid var(--c-border);
@@ -149,7 +144,7 @@
       box-shadow: 0 16px 40px rgba(0,0,0,.5), 0 0 24px rgba(16,185,129,.12);
     }
 
-    /* ── Skill bar ── */
+    /* Barra de habilidad: inicia en 0, JS la anima al porcentaje objetivo */
     .skill-bar-fill {
       height: 3px;
       background: linear-gradient(90deg, #10b981, #34d399);
@@ -158,7 +153,7 @@
       transition: width 1.2s cubic-bezier(.22,1,.36,1);
     }
 
-    /* ── Tag badge ── */
+    /* Etiquetas/badges de tecnologías */
     .tag {
       display: inline-flex;
       align-items: center;
@@ -173,14 +168,14 @@
       letter-spacing: .04em;
     }
 
-    /* ── Section divider ── */
+    /* Divisor decorativo bajo los títulos de sección */
     .divider {
       width: 60px; height: 2px;
       background: linear-gradient(90deg, #10b981, transparent);
       border-radius: 2px;
     }
 
-    /* ── Avatar ring ── */
+    /* Anillo giratorio alrededor del avatar */
     .avatar-ring {
       background: conic-gradient(#10b981, #d97706, #10b981);
       padding: 3px;
@@ -189,7 +184,7 @@
     }
     @keyframes spin-slow { to { transform: rotate(360deg); } }
 
-    /* ── Timeline ── */
+    /* Estilos del timeline de educación */
     .timeline-dot {
       width: 12px; height: 12px;
       border-radius: 50%;
@@ -204,7 +199,7 @@
       flex-shrink: 0;
     }
 
-    /* ── CTA button ── */
+    /* Botón principal con efecto de relleno desde la izquierda */
     .btn-primary {
       position: relative;
       overflow: hidden;
@@ -233,12 +228,12 @@
     .btn-primary:hover { color: #0d0b09; }
     .btn-primary:hover::before { transform: scaleX(1); }
 
-    /* ── Scrollbar ── */
+    /* Scrollbar personalizada */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: #0d0b09; }
     ::-webkit-scrollbar-thumb { background: #10b981; border-radius: 4px; }
 
-    /* ── Mobile menu ── */
+    /* Menú móvil: oculto por defecto, visible con clase .open */
     #mobile-menu {
       display: none;
       flex-direction: column;
@@ -246,6 +241,16 @@
       backdrop-filter: blur(20px);
     }
     #mobile-menu.open { display: flex; }
+
+    /* ── AVATAR: estilo para la foto personal ── */
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;       /* Recorta la imagen para llenar el círculo */
+      object-position: top;    /* Prioriza la parte superior (rostro) */
+      border-radius: 50%;
+      display: block;
+    }
   </style>
 </head>
 
@@ -257,12 +262,12 @@
 <nav id="navbar" class="px-6 py-4">
   <div class="max-w-6xl mx-auto flex items-center justify-between">
 
-    <!-- Logo -->
+    <!-- Logo / nombre corto -->
     <a href="#hero" class="font-display text-xl text-white tracking-wide hover:text-emerald-DEFAULT transition-colors">
       D<span class="text-emerald-DEFAULT">.</span>del Ángel
     </a>
 
-    <!-- Desktop links -->
+    <!-- Links de navegación (solo en desktop) -->
     <ul class="hidden md:flex items-center gap-8 text-sm font-body text-stone-lighter tracking-wide">
       <li><a href="#sobre-mi"     class="hover:text-emerald-DEFAULT transition-colors">Sobre&nbsp;mí</a></li>
       <li><a href="#experiencias" class="hover:text-emerald-DEFAULT transition-colors">Experiencias</a></li>
@@ -271,13 +276,13 @@
       <li><a href="#contacto"     class="btn-primary text-xs uppercase tracking-widest">Contacto</a></li>
     </ul>
 
-    <!-- Hamburger -->
+    <!-- Botón hamburguesa (solo en móvil) -->
     <button id="hamburger" class="md:hidden text-white focus:outline-none" aria-label="Menú">
       <i class="fa-solid fa-bars text-xl"></i>
     </button>
   </div>
 
-  <!-- Mobile menu -->
+  <!-- Menú móvil desplegable -->
   <div id="mobile-menu" class="md:hidden flex-col gap-4 px-6 pb-6 pt-2 border-t border-emerald-DEFAULT/10">
     <a href="#sobre-mi"     class="text-stone-lighter hover:text-emerald-DEFAULT transition-colors py-1 block" onclick="closeMobileMenu()">Sobre mí</a>
     <a href="#experiencias" class="text-stone-lighter hover:text-emerald-DEFAULT transition-colors py-1 block" onclick="closeMobileMenu()">Experiencias</a>
@@ -293,42 +298,42 @@
      ╚══════════════════════════════╝ -->
 <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
 
-  <!-- Canvas partículas -->
+  <!-- Canvas de partículas animadas (dibujado con JavaScript) -->
   <canvas id="hero-canvas"></canvas>
 
-  <!-- Radial spotlight -->
+  <!-- Luz de fondo radial verde -->
   <div class="absolute inset-0 pointer-events-none"
        style="background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(16,185,129,.07) 0%, transparent 70%);"></div>
 
-  <!-- Líneas decorativas -->
+  <!-- Líneas decorativas laterales -->
   <div class="absolute left-0 top-1/2 w-40 h-px bg-gradient-to-r from-transparent to-emerald-DEFAULT/30 -translate-y-1/2"></div>
   <div class="absolute right-0 top-1/2 w-40 h-px bg-gradient-to-l from-transparent to-emerald-DEFAULT/30 -translate-y-1/2"></div>
 
   <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
 
-    <!-- Eyebrow -->
+    <!-- Texto superior pequeño (eyebrow) -->
     <p class="reveal font-body text-sm tracking-[.25em] uppercase text-emerald-DEFAULT mb-6 opacity-80">
       Portfolio Profesional
     </p>
 
-    <!-- Nombre principal -->
+    <!-- Nombre principal con tamaño fluido responsive -->
     <h1 class="reveal delay-1 font-display font-semibold leading-none mb-4"
         style="font-size: clamp(2.8rem, 8vw, 6rem);">
       <span class="text-cream">Diego del Ángel</span><br/>
       <span class="gradient-text italic">Medina</span>
     </h1>
 
-    <!-- Subtítulo -->
+    <!-- Subtítulo / cargo -->
     <p class="reveal delay-2 font-body text-stone-lighter text-lg md:text-xl mb-4 max-w-xl mx-auto">
       Técnico en Productividad Industrial &amp; Desarrollador Web
     </p>
 
-    <!-- Descripción corta -->
+    <!-- Descripción breve -->
     <p class="reveal delay-3 font-body text-stone-DEFAULT text-sm md:text-base mb-10 max-w-lg mx-auto">
       Egresado del CONALEP Ing.&nbsp;Adrián Sada Treviño · Mecánica Automotriz · Industria Textil
     </p>
 
-    <!-- CTAs -->
+    <!-- Botones de acción -->
     <div class="reveal delay-4 flex flex-wrap gap-4 justify-center">
       <a href="#experiencias" class="btn-primary uppercase tracking-widest text-xs">
         Ver experiencias
@@ -340,7 +345,7 @@
       </a>
     </div>
 
-    <!-- Scroll indicator -->
+    <!-- Indicador de scroll animado -->
     <div class="reveal delay-5 mt-20 flex flex-col items-center gap-2 text-stone-DEFAULT/40">
       <span class="text-xs tracking-widest uppercase font-body">Scroll</span>
       <div class="w-px h-10 bg-gradient-to-b from-emerald-DEFAULT/50 to-transparent animate-bounce"></div>
@@ -357,27 +362,39 @@
 
   <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
 
-    <!-- Foto placeholder -->
+    <!-- ── FOTO PERSONAL ──────────────────────────────────────────────
+         CAMBIO 1: Se reemplazó el placeholder (ícono de usuario) por
+         la imagen del avatar 3D personal de Diego.
+         object-fit: cover + object-position: top aseguran que
+         la foto llene el círculo y muestre el rostro correctamente.
+    ─────────────────────────────────────────────────────────────────── -->
     <div class="reveal reveal-left flex justify-center md:justify-start">
       <div class="relative">
-        <!-- Anillo animado -->
+        <!-- Anillo animado con gradiente giratorio -->
         <div class="avatar-ring w-64 h-64 md:w-72 md:h-72 flex items-center justify-center">
-          <div class="bg-soil-mid rounded-full w-full h-full flex items-center justify-center overflow-hidden"
-               style="margin: 3px;">
-            <div class="w-full h-full flex flex-col items-center justify-center bg-soil-mid">
+          <div class="rounded-full w-full h-full overflow-hidden" style="margin: 3px;">
+            <!-- Foto personal: avatar 3D de Diego del Ángel Medina -->
+            <img
+              src="https://files.oaiusercontent.com/file-7PPe7PbFpbGr4NxdYpKsNN?se=2026-05-22T20%3A11%3A13Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D299%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3DWhatsApp%2520Image%25202026-05-22%2520at%25202.10.12%2520PM.jpeg&sig=b3t%2BMN8bAV1Gy8BjbpFRYGXuPuaxRSQ4ld7Mz/WmrE%3D"
+              alt="Diego del Ángel Medina"
+              class="avatar-img"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <!-- Fallback: si la imagen no carga, muestra el ícono de usuario -->
+            <div class="w-full h-full flex-col items-center justify-center bg-soil-mid" style="display:none;">
               <i class="fa-solid fa-user text-6xl text-emerald-DEFAULT/40 mb-2"></i>
               <span class="text-stone-DEFAULT text-xs tracking-widest uppercase font-body">Foto</span>
             </div>
           </div>
         </div>
-        <!-- Badge -->
+        <!-- Badge de título -->
         <div class="absolute -bottom-3 -right-3 bg-emerald-DEFAULT text-soil-dark text-xs font-body font-semibold px-3 py-1.5 rounded-full tracking-wide glow-sm">
           PTB ✓
         </div>
       </div>
     </div>
 
-    <!-- Texto -->
+    <!-- Texto descriptivo (entra desde la derecha) -->
     <div class="reveal reveal-right">
       <p class="text-emerald-DEFAULT text-xs tracking-[.2em] uppercase font-body mb-3">Sobre mí</p>
       <h2 class="font-display text-4xl md:text-5xl font-semibold text-cream mb-5 leading-tight">
@@ -395,7 +412,7 @@
         tengan impacto real.
       </p>
 
-      <!-- Mini stats -->
+      <!-- Mini estadísticas -->
       <div class="grid grid-cols-3 gap-4">
         <div class="text-center p-4 rounded-lg" style="background: rgba(16,185,129,.06); border: 1px solid rgba(16,185,129,.12);">
           <p class="font-display text-3xl text-emerald-DEFAULT font-semibold">3+</p>
@@ -421,12 +438,12 @@
 <section id="experiencias" class="py-28 px-6 relative"
          style="background: #111009;">
 
-  <!-- Decoración fondo -->
+  <!-- Línea decorativa superior -->
   <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-DEFAULT/20 to-transparent"></div>
 
   <div class="max-w-6xl mx-auto">
 
-    <!-- Header sección -->
+    <!-- Encabezado de sección -->
     <div class="reveal text-center mb-20">
       <p class="text-emerald-DEFAULT text-xs tracking-[.2em] uppercase font-body mb-3">Trayectoria</p>
       <h2 class="font-display text-4xl md:text-5xl font-semibold text-cream mb-4">
@@ -435,17 +452,16 @@
       <div class="divider mx-auto"></div>
     </div>
 
-    <!-- Timeline + Cards -->
+    <!-- Tarjetas de experiencia -->
     <div class="space-y-10">
 
       <!-- ── Experiencia 1: Fabricó Textiles ── -->
       <div class="reveal delay-1 exp-card rounded-2xl p-8 relative overflow-hidden">
-        <!-- Accent line -->
+        <!-- Acento lateral verde → tierra -->
         <div class="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl"
              style="background: linear-gradient(180deg, #10b981, #d97706);"></div>
 
         <div class="grid md:grid-cols-3 gap-8 items-start pl-4">
-          <!-- Info principal -->
           <div class="md:col-span-2">
             <div class="flex items-center gap-3 mb-3">
               <div class="w-10 h-10 rounded-lg flex items-center justify-center text-emerald-DEFAULT"
@@ -461,7 +477,6 @@
               Responsable de la gestión y operación del área de corte en la producción de playeras,
               asegurando precisión, calidad y cumplimiento de tiempos en cada proceso productivo.
             </p>
-            <!-- Responsabilidades -->
             <ul class="space-y-2">
               <li class="flex items-start gap-3 font-body text-sm text-stone-lighter">
                 <span class="text-emerald-DEFAULT mt-0.5 flex-shrink-0"><i class="fa-solid fa-check-circle text-xs"></i></span>
@@ -482,7 +497,6 @@
             </ul>
           </div>
 
-          <!-- Tags / Skills usados -->
           <div>
             <p class="font-body text-xs text-stone-DEFAULT uppercase tracking-widest mb-4">Competencias clave</p>
             <div class="flex flex-wrap gap-2">
@@ -493,8 +507,6 @@
               <span class="tag"><i class="fa-solid fa-industry"></i> Producción</span>
               <span class="tag"><i class="fa-solid fa-clipboard-check"></i> Control calidad</span>
             </div>
-
-            <!-- Industria badge -->
             <div class="mt-6 p-4 rounded-xl text-center"
                  style="background: rgba(217,119,6,.06); border: 1px solid rgba(217,119,6,.18);">
               <i class="fa-solid fa-industry text-earth-light text-2xl mb-2 block"></i>
@@ -564,7 +576,7 @@
               </span>
             </div>
 
-            <!-- Link al juego -->
+            <!-- Link al juego con efecto hover en el ícono -->
             <a href="https://diegodelangelmedina-oss.github.io/impacto-preciso/"
                target="_blank" rel="noopener"
                class="flex items-center gap-3 p-4 rounded-xl transition-all duration-300 group"
@@ -664,44 +676,49 @@
 
     <div class="grid md:grid-cols-2 gap-16">
 
-      <!-- Barras de habilidades -->
+      <!-- ── CAMBIO 2: Porcentajes de barras actualizados ──
+           HTML5: 85% → 35%
+           CSS3:  80% → 35%
+           JS:    70% → 40%
+           Mecánica: 65% → 25%
+           Microsoft 365 y Textil permanecen igual. -->
       <div class="reveal reveal-left space-y-8">
         <h3 class="font-display text-xl text-cream font-semibold mb-6">Nivel de dominio</h3>
 
-        <!-- skill: HTML -->
-        <div data-skill="85">
+        <!-- skill: HTML5 → 35% -->
+        <div data-skill="35">
           <div class="flex justify-between font-body text-sm mb-2">
             <span class="text-stone-lighter flex items-center gap-2"><i class="fa-brands fa-html5 text-orange-400"></i> HTML5</span>
-            <span class="text-emerald-DEFAULT">85%</span>
+            <span class="text-emerald-DEFAULT">35%</span>
           </div>
           <div class="h-0.5 bg-soil-mid rounded-full overflow-hidden">
-            <div class="skill-bar-fill" style="--target: 85%;"></div>
+            <div class="skill-bar-fill" style="--target: 35%;"></div>
           </div>
         </div>
 
-        <!-- skill: CSS -->
-        <div data-skill="80">
+        <!-- skill: CSS3 → 35% -->
+        <div data-skill="35">
           <div class="flex justify-between font-body text-sm mb-2">
             <span class="text-stone-lighter flex items-center gap-2"><i class="fa-brands fa-css3-alt text-blue-400"></i> CSS3</span>
-            <span class="text-emerald-DEFAULT">80%</span>
+            <span class="text-emerald-DEFAULT">35%</span>
           </div>
           <div class="h-0.5 bg-soil-mid rounded-full overflow-hidden">
-            <div class="skill-bar-fill" style="--target: 80%;"></div>
+            <div class="skill-bar-fill" style="--target: 35%;"></div>
           </div>
         </div>
 
-        <!-- skill: JS -->
-        <div data-skill="70">
+        <!-- skill: JavaScript → 40% -->
+        <div data-skill="40">
           <div class="flex justify-between font-body text-sm mb-2">
             <span class="text-stone-lighter flex items-center gap-2"><i class="fa-brands fa-js text-yellow-400"></i> JavaScript</span>
-            <span class="text-emerald-DEFAULT">70%</span>
+            <span class="text-emerald-DEFAULT">40%</span>
           </div>
           <div class="h-0.5 bg-soil-mid rounded-full overflow-hidden">
-            <div class="skill-bar-fill" style="--target: 70%;"></div>
+            <div class="skill-bar-fill" style="--target: 40%;"></div>
           </div>
         </div>
 
-        <!-- skill: MS365 -->
+        <!-- skill: Microsoft 365 → 90% (sin cambio) -->
         <div data-skill="90">
           <div class="flex justify-between font-body text-sm mb-2">
             <span class="text-stone-lighter flex items-center gap-2"><i class="fa-brands fa-microsoft text-blue-500"></i> Microsoft 365</span>
@@ -712,18 +729,18 @@
           </div>
         </div>
 
-        <!-- skill: Mecánica -->
-        <div data-skill="65">
+        <!-- skill: Mecánica Automotriz → 25% -->
+        <div data-skill="25">
           <div class="flex justify-between font-body text-sm mb-2">
             <span class="text-stone-lighter flex items-center gap-2"><i class="fa-solid fa-wrench text-earth-light"></i> Mecánica Automotriz</span>
-            <span class="text-emerald-DEFAULT">65%</span>
+            <span class="text-emerald-DEFAULT">25%</span>
           </div>
           <div class="h-0.5 bg-soil-mid rounded-full overflow-hidden">
-            <div class="skill-bar-fill" style="--target: 65%;"></div>
+            <div class="skill-bar-fill" style="--target: 25%;"></div>
           </div>
         </div>
 
-        <!-- skill: Textil -->
+        <!-- skill: Industria Textil → 75% (sin cambio) -->
         <div data-skill="75">
           <div class="flex justify-between font-body text-sm mb-2">
             <span class="text-stone-lighter flex items-center gap-2"><i class="fa-solid fa-shirt text-emerald-DEFAULT"></i> Industria Textil</span>
@@ -735,7 +752,7 @@
         </div>
       </div>
 
-      <!-- Certificaciones Microsoft -->
+      <!-- Certificaciones Microsoft 365 (sin cambios) -->
       <div class="reveal reveal-right">
         <h3 class="font-display text-xl text-cream font-semibold mb-6">Certificaciones Microsoft 365</h3>
         <div class="space-y-4">
@@ -830,16 +847,14 @@
       <div class="divider mx-auto"></div>
     </div>
 
-    <!-- Timeline item único -->
+    <!-- Timeline con punto y línea a la izquierda -->
     <div class="reveal delay-1 flex gap-6">
 
-      <!-- Timeline visual -->
       <div class="flex flex-col items-center pt-1">
         <div class="timeline-dot"></div>
         <div class="timeline-line flex-1 mt-2"></div>
       </div>
 
-      <!-- Contenido -->
       <div class="exp-card rounded-2xl p-8 flex-1 mb-10">
         <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
           <div>
@@ -855,7 +870,7 @@
           de productividad digital.
         </p>
 
-        <!-- Carrera highlight -->
+        <!-- Tarjeta de carrera destacada -->
         <div class="p-5 rounded-xl"
              style="background: linear-gradient(135deg, rgba(16,185,129,.08), rgba(217,119,6,.05)); border: 1px solid rgba(16,185,129,.15);">
           <div class="flex items-center gap-3 mb-2">
@@ -895,7 +910,7 @@
         Una muestra del potencial creativo y técnico en desarrollo frontend.
       </p>
 
-      <!-- Preview card -->
+      <!-- Tarjeta del juego con brillo esmeralda -->
       <div class="reveal delay-2 exp-card rounded-2xl p-10 mb-8 glow"
            style="background: linear-gradient(135deg, #1e1a16, #1a2218);">
         <div class="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 text-emerald-DEFAULT text-4xl glow"
@@ -948,9 +963,13 @@
       </p>
     </div>
 
-    <!-- Social links -->
+    <!-- ── CAMBIO 3: Redes sociales actualizadas ──────────────────────
+         Se mantienen GitHub e Impacto Preciso.
+         Se agregan Instagram y Correo electrónico nuevos.
+    ─────────────────────────────────────────────────────────────────── -->
     <div class="reveal delay-2 flex flex-wrap gap-4 justify-center mb-16">
 
+      <!-- GitHub -->
       <a href="https://github.com/diegodelangelmedina-oss"
          target="_blank" rel="noopener"
          class="flex items-center gap-3 px-6 py-3 rounded-xl font-body text-sm transition-all duration-300 hover:-translate-y-1"
@@ -959,6 +978,24 @@
         GitHub
       </a>
 
+      <!-- Instagram: @ddiego20.97 -->
+      <a href="https://instagram.com/ddiego20.97"
+         target="_blank" rel="noopener"
+         class="flex items-center gap-3 px-6 py-3 rounded-xl font-body text-sm transition-all duration-300 hover:-translate-y-1"
+         style="background: rgba(225,48,108,.06); border: 1px solid rgba(225,48,108,.25); color: #f472b6;">
+        <i class="fa-brands fa-instagram text-lg"></i>
+        @ddiego20.97
+      </a>
+
+      <!-- Correo electrónico -->
+      <a href="mailto:diegodelangelmedina@gmail.com"
+         class="flex items-center gap-3 px-6 py-3 rounded-xl font-body text-sm transition-all duration-300 hover:-translate-y-1"
+         style="background: rgba(217,119,6,.06); border: 1px solid rgba(217,119,6,.25); color: #d97706;">
+        <i class="fa-solid fa-envelope text-lg"></i>
+        diegodelangelmedina@gmail.com
+      </a>
+
+      <!-- Impacto Preciso -->
       <a href="https://diegodelangelmedina-oss.github.io/impacto-preciso/"
          target="_blank" rel="noopener"
          class="flex items-center gap-3 px-6 py-3 rounded-xl font-body text-sm transition-all duration-300 hover:-translate-y-1"
@@ -969,11 +1006,11 @@
 
     </div>
 
-    <!-- Divider -->
+    <!-- Línea separadora con degradado -->
     <div class="w-full h-px mb-8"
          style="background: linear-gradient(90deg, transparent, rgba(16,185,129,.15), transparent);"></div>
 
-    <!-- Bottom bar -->
+    <!-- Barra inferior: copyright + firma -->
     <div class="flex flex-col md:flex-row items-center justify-between gap-4 font-body text-stone-DEFAULT text-xs">
       <p>© 2024 <span class="text-emerald-DEFAULT">Diego del Ángel Medina</span>. Todos los derechos reservados.</p>
       <p class="flex items-center gap-2">
@@ -990,7 +1027,7 @@
      ╚══════════════════════════════╝ -->
 <script>
 /* ─────────────────────────────────────────
-   1. Navbar scroll effect
+   1. Navbar: agrega clase "scrolled" al bajar de 30px
 ───────────────────────────────────────── */
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
@@ -999,7 +1036,7 @@ window.addEventListener('scroll', () => {
 
 
 /* ─────────────────────────────────────────
-   2. Mobile menu toggle
+   2. Menú móvil: toggle de la clase "open"
 ───────────────────────────────────────── */
 const hamburger    = document.getElementById('hamburger');
 const mobileMenu   = document.getElementById('mobile-menu');
@@ -1018,7 +1055,8 @@ function closeMobileMenu() {
 
 
 /* ─────────────────────────────────────────
-   3. Scroll reveal (IntersectionObserver)
+   3. Scroll reveal con IntersectionObserver
+   Agrega "visible" cuando el elemento entra al viewport
 ───────────────────────────────────────── */
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -1033,7 +1071,8 @@ document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 
 /* ─────────────────────────────────────────
-   4. Skill bars animation
+   4. Barras de habilidades: se animan al entrar al viewport
+   Lee la variable CSS --target y la aplica como width
 ───────────────────────────────────────── */
 const skillObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -1052,7 +1091,9 @@ document.querySelectorAll('[data-skill]').forEach(el => skillObserver.observe(el
 
 
 /* ─────────────────────────────────────────
-   5. Hero canvas particles
+   5. Canvas de partículas animadas (Hero)
+   60 puntos que se mueven, rebotan y se conectan
+   con líneas si están a menos de 130px de distancia
 ───────────────────────────────────────── */
 (function initParticles() {
   const canvas = document.getElementById('hero-canvas');
@@ -1060,6 +1101,7 @@ document.querySelectorAll('[data-skill]').forEach(el => skillObserver.observe(el
 
   let W, H, particles = [];
 
+  /* Ajusta la resolución del canvas al tamaño del contenedor */
   const resize = () => {
     W = canvas.width  = canvas.offsetWidth;
     H = canvas.height = canvas.offsetHeight;
@@ -1067,7 +1109,7 @@ document.querySelectorAll('[data-skill]').forEach(el => skillObserver.observe(el
   window.addEventListener('resize', resize, { passive: true });
   resize();
 
-  /* Generate particles */
+  /* Crear 60 partículas con posición y velocidad aleatoria */
   const NUM = 60;
   for (let i = 0; i < NUM; i++) {
     particles.push({
@@ -1085,7 +1127,7 @@ document.querySelectorAll('[data-skill]').forEach(el => skillObserver.observe(el
   function draw() {
     ctx.clearRect(0, 0, W, H);
 
-    /* Draw connections */
+    /* Dibujar líneas entre partículas cercanas (<130px) */
     for (let i = 0; i < particles.length; i++) {
       for (let j = i + 1; j < particles.length; j++) {
         const p  = particles[i], q = particles[j];
@@ -1102,7 +1144,7 @@ document.querySelectorAll('[data-skill]').forEach(el => skillObserver.observe(el
       }
     }
 
-    /* Draw dots */
+    /* Dibujar cada punto, moverlo y rebotarlo en los bordes */
     particles.forEach(p => {
       ctx.fillStyle = `rgba(${EMERALD},${p.alpha.toFixed(2)})`;
       ctx.beginPath();
@@ -1125,3 +1167,8 @@ document.querySelectorAll('[data-skill]').forEach(el => skillObserver.observe(el
 
 </body>
 </html>
+ENDOFFILE
+echo "OK"
+Salida
+
+OK
