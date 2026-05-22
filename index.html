@@ -361,25 +361,38 @@
 
   <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
 
-   <!-- Foto personal con anillo giratorio -->
-<div class="reveal reveal-left flex justify-center md:justify-start">
-  <div class="relative">
-    <div class="avatar-ring w-64 h-64 md:w-72 md:h-72 flex items-center justify-center">
-      <div class="rounded-full w-full h-full overflow-hidden" style="margin: 3px;">
-        <img 
-          src="assets/avatar.jpg" 
-          alt="Diego del Ángel Medina" 
-          class="w-full h-full object-cover"
-        >
+   <!-- ── FOTO PERSONAL ──────────────────────────────────────────────
+         CAMBIO 1: Se reemplazó el placeholder (ícono de usuario) por
+         la imagen del avatar 3D personal de Diego.
+         object-fit: cover + object-position: top aseguran que
+         la foto llene el círculo y muestre el rostro correctamente.
+    ─────────────────────────────────────────────────────────────────── -->
+    <div class="reveal reveal-left flex justify-center md:justify-start">
+      <div class="relative">
+        <!-- Anillo animado con gradiente giratorio -->
+        <div class="avatar-ring w-64 h-64 md:w-72 md:h-72 flex items-center justify-center">
+          <div class="rounded-full w-full h-full overflow-hidden" style="margin: 3px;">
+            <!-- Foto personal: avatar 3D de Diego del Ángel Medina -->
+            <img
+              src="https://files.oaiusercontent.com/file-7PPe7PbFpbGr4NxdYpKsNN?se=2026-05-22T20%3A11%3A13Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D299%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3DWhatsApp%2520Image%25202026-05-22%2520at%25202.10.12%2520PM.jpeg&sig=b3t%2BMN8bAV1Gy8BjbpFRYGXuPuaxRSQ4ld7Mz/WmrE%3D"
+              alt="Diego del Ángel Medina"
+              class="avatar-img"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <!-- Fallback: si la imagen no carga, muestra el ícono de usuario -->
+            <div class="w-full h-full flex-col items-center justify-center bg-soil-mid" style="display:none;">
+              <i class="fa-solid fa-user text-6xl text-emerald-DEFAULT/40 mb-2"></i>
+              <span class="text-stone-DEFAULT text-xs tracking-widest uppercase font-body">Foto</span>
+            </div>
+          </div>
+        </div>
+        <!-- Badge de título -->
+        <div class="absolute -bottom-3 -right-3 bg-emerald-DEFAULT text-soil-dark text-xs font-body font-semibold px-3 py-1.5 rounded-full tracking-wide glow-sm">
+          PTB ✓
+        </div>
       </div>
     </div>
-    
-    <!-- Badge PTB -->
-    <div class="absolute -bottom-3 -right-3 bg-emerald-DEFAULT text-soil-dark text-xs font-body font-semibold px-3 py-1.5 rounded-full tracking-wide glow-sm">
-      PTB ✓
-    </div>
-  </div>
-</div>
+
 
     <!-- Texto descriptivo (entra desde la derecha) -->
     <div class="reveal reveal-right">
